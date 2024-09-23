@@ -10,6 +10,10 @@ Task createDanceSynchroTask(const std::string& syncho_ip)
 
   task.push_back(createActionWaitSynchro());
 
+  task.push_back(createActionMoveRight(-1));
+
+  task.push_back(createActionWaitSynchro());
+
   task.push_back(createActionDelay(2300));
 
   task.push_back(createActionSpeakAnim("Bonjour, je m'appel paipeur"));
@@ -68,6 +72,8 @@ Task createDanceSynchroTask(const std::string& syncho_ip)
                               {{1.14574,-0.055,1.47557,1.33894,2.03192},
                                { 1.3179131746292114, -0.03515475615859032, 1.3730974197387695, 0.6137155294418335, 0.8069871068000793 }}));
 
+  task.push_back(createActionDelay(2000));
+  
   task.push_back(createActionLaunchSynchro(syncho_ip));
   task.push_back(createActionDelay(5000));
 
@@ -81,6 +87,8 @@ Task createDanceSynchroTask(const std::string& syncho_ip)
                               {{ 1.3179131746292114, -0.03515475615859032, 1.3730974197387695, 0.6137155294418335, 0.8069871068000793 }}, 1.2));
 
   task.push_back(createAction(head_front));
+
+  task.push_back(createActionMoveRight(1));
 
   return task;
 }
