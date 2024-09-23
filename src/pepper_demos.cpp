@@ -6,6 +6,7 @@
 #include "pepper_demo_lib/Parameters.h"
 
 #include "pepper_demos/Macarena.h"
+#include "pepper_demos/MacarenaSynchro.h"
 
 #include <chrono>
 #include <iostream>
@@ -36,6 +37,7 @@ int main(int argc, char** argv)
   Parameters params;
   params.insert(Parameter("task", {"-t", "--task"}));
   params.insert(Parameter("language", {"-l", "--language"}, {"fr"}));
+  params.insert(Parameter("ip", {"-i", "--ip"}, {""}));
 
   params.set(argc, argv);
   params.display();
@@ -54,6 +56,18 @@ int main(int argc, char** argv)
   {
     std::cout << "start dance !" << std::endl;
     Task task = createDanceTask();
+    executeTask(&robot, task);
+  }
+  else if(params.at("task").getFirst() == "synchro")
+  {
+    std::string synchro_ip = params.at("ip").getFirst();
+    if(synchro_ip == "")
+    {
+      std::cout << "The synchronized dance requires you to provide the synchro ip using the -i or --ip parameter." << std::endl;
+      return -1;
+    }
+    std::cout << "start synchro dance !" << std::endl;
+    Task task = createDanceSynchroTask(synchro_ip);
     executeTask(&robot, task);
   }
 
